@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Crossfire.Extensions;
 using CrossfireXUnit.Local;
 using Microsoft.Azure.Management.Analysis;
+using xRetry;
 using Xunit;
 
 namespace CrossfireXUnit.Extensions
@@ -61,7 +62,7 @@ namespace CrossfireXUnit.Extensions
         /// </summary>
         /// <param name="cacheTableName">Table name for cache client.</param>
         /// <returns>XUnit test task.</returns>
-        [Theory]
+        [RetryTheory(3)]
         [InlineData("")]
         [InlineData(nameof(IdentityManagerTest))]
         public async Task CreateAnalysisServicesManagementClient(string cacheTableName)
