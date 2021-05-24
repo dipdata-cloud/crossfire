@@ -1,3 +1,4 @@
+![main](https://github.com/dipdata-cloud/crossfire/actions/workflows/ci.yaml/badge.svg)
 # Introduction
 Crossfire is an open-source message-queue, cache and request/response pre-process server for (various) data exploration backends. Currently supported: 
 - Azure Analysis Services
