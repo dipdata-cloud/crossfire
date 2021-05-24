@@ -62,7 +62,7 @@ namespace CrossfireXUnit.Extensions
         /// </summary>
         /// <param name="cacheTableName">Table name for cache client.</param>
         /// <returns>XUnit test task.</returns>
-        [RetryTheory(3)]
+        [RetryTheory(3, 15000)]
         [InlineData("")]
         [InlineData(nameof(IdentityManagerTest))]
         public async Task CreateAnalysisServicesManagementClient(string cacheTableName)
