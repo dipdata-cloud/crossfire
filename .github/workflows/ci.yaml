@@ -1,0 +1,40 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      env:
+        TESTSETTINGS_JSON: '${{ secrets.TESTSETTINGS_JSON }}'
+        SPN_ID: ${{ secrets.SPN_ID }}
+        SPN_SECRET: ${{ secrets.SPN_SECRET }}
+        TENANT: ${{ secrets.TENANT }}
+      run: |
+        rm ./test/CrossfireXUnit/testsettings.json" &&
+        echo $TESTSETTINGS_JSON > ./test/CrossfireXUnit/testsettings.json" &&
+        az login --service-principal --username $SPN_ID --password $SPN_SECRET --tenant $TENANT && 
+        dotnet test ./test/CrossfireXUnit/CrossfireXUnit.csproj --results-directory ./test/results --configuration Debug --runtime linux-x64 --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=lcov --logger trx
+    - name: Publish Code Coverage
+      uses: romeovs/lcov-reporter-action@v0.2.16
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        lcov-file: ./test/results/lcov.info
+
