@@ -35,6 +35,7 @@ jobs:
         dotnet add package coverlet.msbuild &&
         dotnet test CrossfireXUnit.csproj --configuration Debug --runtime linux-x64 /p:CollectCoverage=true /p:CoverletOutput=Coverage/ /p:CoverletOutputFormat=lcov --logger GitHubActions
     - name: Publish Code Coverage
+      if: always()
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
