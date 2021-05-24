@@ -22,19 +22,20 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./test/CrossfireXUnit
       env:
         TESTSETTINGS_JSON: '${{ secrets.TESTSETTINGS_JSON }}'
         SPN_ID: ${{ secrets.SPN_ID }}
         SPN_SECRET: ${{ secrets.SPN_SECRET }}
         TENANT: ${{ secrets.TENANT }}
       run: |
-        rm ./test/CrossfireXUnit/testsettings.json" &&
-        echo $TESTSETTINGS_JSON > ./test/CrossfireXUnit/testsettings.json" &&
+        rm testsettings.json &&
+        echo $TESTSETTINGS_JSON > testsettings.json &&
         az login --service-principal --username $SPN_ID --password $SPN_SECRET --tenant $TENANT && 
-        dotnet test ./test/CrossfireXUnit/CrossfireXUnit.csproj --results-directory ./test/results --configuration Debug --runtime linux-x64 --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=lcov --logger trx
+        dotnet test CrossfireXUnit.csproj --results-directory results --configuration Debug --runtime linux-x64 --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=lcov --logger trx
     - name: Publish Code Coverage
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        lcov-file: ./test/results/lcov.info
+        lcov-file: ./test/CrossfireXUnit/results/lcov.info
 
