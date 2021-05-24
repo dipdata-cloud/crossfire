@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Xunit;
+using xRetry;
 
 namespace CrossfireXUnit.Jobs
 {
@@ -50,7 +50,7 @@ namespace CrossfireXUnit.Jobs
         /// NB: this is not guaranteed to provide 100% coverage with current implementation. Test might fail if Azure AS instance is unresponsive.
         /// </summary>
         /// <returns>XUnit test task.</returns>
-        [Fact]
+        [RetryFact(3, 15000)]
         public async Task Process()
         {
             var (context, client) = this.SetupHubContext();
