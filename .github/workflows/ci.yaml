@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  validate_commit:
 
     runs-on: ubuntu-latest
 
@@ -31,8 +31,9 @@ jobs:
       run: |
         rm testsettings.json &&
         echo $TESTSETTINGS_JSON > testsettings.json &&
-        az login --service-principal --username $SPN_ID --password $SPN_SECRET --tenant $TENANT && 
-        dotnet test CrossfireXUnit.csproj --configuration Debug --runtime linux-x64 --collect:"XPlat Code Coverage" /p:CoverletOutputFormat=lcov --logger GitHubActions
+        az login --service-principal --username $SPN_ID --password $SPN_SECRET --tenant $TENANT &&
+        dotnet add package coverlet.msbuild &&
+        dotnet test CrossfireXUnit.csproj --configuration Debug --runtime linux-x64 /p:CollectCoverage=true /p:CoverletOutput=Coverage/ /p:CoverletOutputFormat=lcov --logger GitHubActions
     - name: Publish Code Coverage
       uses: romeovs/lcov-reporter-action@v0.2.16
       with:

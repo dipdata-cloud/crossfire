@@ -1,5 +1,4 @@
-[![Build Status](https://dipdata.visualstudio.com/Pyros/_apis/build/status/Crossfire/Crossfire-Github?branchName=main&jobName=Build%20and%20Publish)](https://dipdata.visualstudio.com/Pyros/_build/latest?definitionId=34&branchName=main)
-[![Coverage](https://img.shields.io/azure-devops/coverage/dipdata/Pyros/34?style=plastic)](https://img.shields.io/azure-devops/coverage/dipdata/Pyros/34?style=plastic)
+![main](https://github.com/dipdata-cloud/crossfire/actions/workflows/ci.yaml/badge.svg)
 # Introduction
 Crossfire is an open-source message-queue, cache and request/response pre-process server for (various) data exploration backends. Currently supported: 
 - Azure Analysis Services
