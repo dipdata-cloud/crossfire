@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverfarms_crossfire_farm_group_1_name": {
+      "type": "String"
+    },
+    "serverfarms_crossfire_farm_location": {
+      "type": "String"
+    },
+    "serverfarms_crossfire_farm_sku": {
+      "type": "String"
+    },
+    "serverfarms_crossfire_farm_skucode": {
+      "type": "String"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-02-01",
+      "name": "[parameters('serverfarms_crossfire_farm_group_1_name')]",
+      "location": "[parameters('serverfarms_crossfire_farm_location')]",
+      "tags": {},
+      "sku": {
+        "name": "[parameters('serverfarms_crossfire_farm_skucode')]",
+        "tier": "[parameters('serverfarms_crossfire_farm_sku')]"
+      },
+      "kind": "linux",
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 1,
+        "isSpot": false,
+        "reserved": true,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    }
+  ]
+}

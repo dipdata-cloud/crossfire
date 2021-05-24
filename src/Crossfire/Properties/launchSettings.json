@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Crossfire": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64221"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "http://0.0.0.0:5000"
+    }
+  }
+}

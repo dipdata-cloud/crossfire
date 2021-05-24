@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "crossfiretest"
+    },
+    "location": {
+      "value": "westeurope"
+    },
+    "sku": {
+      "value": "D1"
+    },
+    "admin": {
+      "value": "george.zubrienko@dipdata.cloud"
+    },
+    "backupBlobContainerUri": {
+      "value": ""
+    },
+    "managedMode": {
+      "value": 1
+    }
+  }
+}

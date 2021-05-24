@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "value": "<subscription id>"
+    },
+    "name": {
+      "value": "crossfire-units"
+    },
+    "location": {
+      "value": "West Europe"
+    },
+    "hostingPlanName": {
+      "value": "crossfire-test-farm"
+    },
+    "serverFarmResourceGroup": {
+      "value": "crossfire-units"
+    },
+    "alwaysOn": {
+      "value": true
+    },
+    "linuxFxVersion": {
+      "value": "DOTNETCORE|3.1"
+    }
+  }
+}

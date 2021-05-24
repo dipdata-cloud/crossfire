@@ -1,0 +1,61 @@
+# Variable 'version.major' was defined in the Variables tab
+# Variable 'version.minor' was defined in the Variables tab
+variables:
+- name: BuildParameters.solution
+  value: '**\*.sln'
+- name: BuildParameters.ArtifactName
+  value: pub
+- name: BuildParameters.searchPatternPack
+  value: '**/*.csproj'
+trigger:
+  branches:
+    include:
+    - refs/heads/master
+  batch: True
+name: $(version.major).$(version.minor).$(Date:yyyyMMdd)-$(Rev:r)
+jobs:
+- job: Phase_1
+  displayName: Build and Publish
+  cancelTimeoutInMinutes: 1
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: NuGetToolInstaller@1
+    name: NuGetToolInstaller1
+    displayName: Use Latest Nuget
+    inputs:
+      versionSpec: 4.3.0
+      checkLatest: true
+  - task: NuGetCommand@2
+    name: NuGetCommand1
+    displayName: NuGet restore
+    inputs:
+      solution: $(BuildParameters.solution)
+      noCache: true
+      searchPatternPush: $(Build.ArtifactStagingDirectory)/*.nupkg
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 3.1.x
+    inputs:
+      version: 3.1.x
+  - task: DotNetCoreCLI@2
+    displayName: Build Crossfire
+    inputs:
+      arguments: --configuration $(BuildConfiguration) --framework netcoreapp3.1 --runtime linux-x64
+      searchPatternPack: $(BuildParameters.searchPatternPack)
+  - task: DotNetCoreCLI@2
+    displayName: Publish Crossfire
+    inputs:
+      command: publish
+      arguments: --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --framework netcoreapp3.1 --runtime linux-x64
+      modifyOutputPath: false
+  - task: PublishBuildArtifacts@1
+    name: PublishBuildArtifacts5
+    displayName: Publish Artifact
+    condition: succeededOrFailed()
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: $(BuildParameters.ArtifactName)
+      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+...

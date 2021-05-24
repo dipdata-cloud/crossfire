@@ -1,0 +1,30 @@
+{
+  "StorageAccountConnectionString": "<Storage account or Azurite for testing. Must support Table API>.",
+  "KeyVault": {
+    "Uri": "https://my-test-keyvault.vault.azure.net",
+    "TestSecrets": [
+      {
+        "Name": "abc",
+        "Secret": "abc"
+      },
+      {
+        "Name": "edf",
+        "Secret": "edf"
+      }
+    ]
+  },
+  "Tenant": "<Azure AD Tenant identifier>.",
+  "AzureAdGraphApiClientId": "<Azure AD Client Application Identifier to be used for testing>.",
+  "AzureAdGraphApiTestUserId": "<Object identifier of a test Azure AD user principal>.",
+  "AzureAdGraphApiTestUPN": "<my-user-id>@<my-org>.onmicrosoft.com",
+  "AzureAS": {
+    "ServerUri": "https://<test-server-region>.asazure.windows.net",
+    "ApplicationId": "<Application Identifier of a client app that is a server admin>.",
+    "ConnectionProvider": "Provider=MSOLAP;Data Source=asazure://<test-server-region>.asazure.windows.net/<test-server-name>;",
+    "ResourceGroup": "<test-server-resource-group>.",
+    "Region": "<test-server-region>.",
+    "TargetServer": "<test-server-name>.",
+    "ServerServiceUri": "asazure://<test-server-region>.asazure.windows.net/<test-server-name>.",
+    "SubscriptionId": "<Subscription Identifier of a test server>."
+  }
+}
