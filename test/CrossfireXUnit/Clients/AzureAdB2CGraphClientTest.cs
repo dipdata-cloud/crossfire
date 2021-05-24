@@ -42,9 +42,8 @@ namespace CrossfireXUnit.Clients
         [Fact]
         public async Task GetUserByObjectIdNonExisting()
         {
-            var objectId = this.TestConfiguration.AzureAdGraphApiTestUserId;
             var testClient = await this.GetClient();
-            var stringUser = await testClient.GetUserByObjectId(objectId);
+            var stringUser = await testClient.GetUserByObjectId("non-existing");
             Assert.Null(stringUser);
         }
 
